@@ -1,0 +1,19 @@
+def classifierScores(classifiers,scorer,scorer_label,Algo_names,X,y):
+    cv_results=[]
+
+    for classifier in classifiers:
+        cv_results.append(cross_val_score(classifier,X,y,scoring=scorer,n_jobs=-1))
+    
+    cv_means,cv_stds=[],[]
+    for cv_result in cv_results:
+        cv_means.append(cv_result.mean())
+        cv_stds.append(cv_result.std())
+        
+    cv_data=pd.DataFrame({'CVmeans':cv_means,
+                          'CVerrors':cv_stds,
+                          'Algo':Algo_names
+                         })
+    
+    g=sns.barplot('CVmeans','Algo',data=cv_data,orient='h',**{'xerr':cv_stds})
+    g.set_xlabel(scorer_label)
+    g=g.set_title('Cross Val Scores')

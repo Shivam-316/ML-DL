@@ -1,0 +1,13 @@
+def save_show_model_metrics(metrics,run_index):
+    path=os.path.join(os.curdir,"Run_{:03d}".format(run_index))
+    os.mkdir(path, mode = 0o777)
+    txt=os.path.join(path,"Metrics.txt")
+    png=os.path.join(path,"Metrics.png")
+    f=open(txt,'w')
+    f.write("Total Epochs: {0}   Loss: {1}   Accuracy: {2}   Val_Loss: {3}   Val_Accuracy: {4}".format(max(metrics.epoch)+1,metrics.history['loss'][-1],metrics.history['accuracy'][-1],metrics.history['val_loss'][-1],metrics.history['val_accuracy'][-1]))
+    f.close()
+    pd.DataFrame(metrics.history).plot(figsize=(8,5))
+    plt.grid(True)
+    plt.gca().set_ylim(-0.5,1.5)
+    plt.savefig(png)
+    plt.show()

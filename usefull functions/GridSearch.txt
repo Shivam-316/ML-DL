@@ -1,0 +1,4 @@
+def gridSearch(model,param):
+    gs=GridSearchCV(model,param_grid=param,n_jobs=-1)
+    gs.fit(Xtrain,ytrain)
+    print(gs.best_estimator_)

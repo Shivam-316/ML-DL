@@ -1,0 +1,10 @@
+def Scores(model,y_test,y_pred):
+    print(model)
+    print('---------------\n')
+    print('Accuracy : ',accuracy_score(y_test,y_pred))
+    print('Precision : ',precision_score(y_test,y_pred))
+    print('Recall : ',recall_score(y_test,y_pred))
+    print('F1 : ',f1_score(y_test,y_pred))
+    print('Area Under ROC : ',roc_auc_score(y_test,y_pred))
+    print('Error : ',np.sqrt(mean_squared_error(y_test,y_pred)))
+    print(confusion_matrix(ytest,y_pred))

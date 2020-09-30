@@ -1,0 +1,22 @@
+from sklearn.model_selection import learning_curve
+def learningCurve(model,title,X,y,ax):
+    train_sizes,train_score,test_score=learning_curve(model,X,y)
+    train_scores_mean=np.mean(train_score,axis=1)
+    test_scores_mean=np.mean(test_score,axis=1)
+    train_scores_std=np.std(train_score,axis=1)
+    test_scores_std=np.std(test_score,axis=1)
+    
+    ax.grid()
+    ax.set_title(title,color='white')
+    ax.plot(train_sizes,train_scores_mean,'o-',color='r',label='Training Curve')
+    ax.plot(train_sizes,test_scores_mean,'o-',color='g',label='Cross Val Curve')
+    ax.fill_between(train_sizes, train_scores_mean - train_scores_std,train_scores_mean + train_scores_std, alpha=0.1,color="r")
+    ax.fill_between(train_sizes, test_scores_mean - test_scores_std,test_scores_mean + test_scores_std, alpha=0.1,color="g")
+    ax.tick_params(axis='x', colors='white')
+    ax.tick_params(axis='y', colors='white')
+    ax.set_xlabel("Training examples",color="white")
+    ax.set_ylabel("Score",color="white")
+    ax.legend(loc="best")
+
+
+#use plt.subplots(rows,cols,figsize)
